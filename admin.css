@@ -1,0 +1,135 @@
+html,body{
+    margin: 0;
+    padding: 0;
+}
+.wrapper{
+    height: 100vh;
+    display: flex;
+    flex-direction:column;
+}
+#row1{
+    height: 100px;
+    background-color: #081f41;
+    width: 100%;
+}  
+header{
+    font-size: 60px;
+    color: #e3ecff;
+    font-weight: 700;
+    padding-left:20px;
+    display: inline-block;
+    height: 100%;
+    padding-bottom: 5px;
+}
+header:hover{
+    cursor: pointer;
+}
+#row2{
+    min-height: 250px;
+    display: flex;
+    height: 100%;
+}
+nav{
+    background-color: maroon;
+    min-width: 250px;
+    overflow: auto;
+}
+.index{
+    list-style: none;
+    padding-top: 20px;
+}
+.subindex{
+    list-style: disc;
+    color: white;
+}
+.index a{
+    text-decoration: none;
+    color: white;
+    font-size: 18px;
+}
+.index a:hover{
+    text-decoration: none;
+    color: peachpuff;
+    font-weight: 500;
+}
+#main{
+    background-color: peachpuff;
+    width: 100%;
+    overflow: auto;
+}
+#heading {
+    padding: 10px;
+    color: maroon;
+    font-size: 40px;
+    font-weight: 500;
+}
+#main #para {
+    padding: 20px;
+    background-color: rgb(255, 224, 195);
+    font-size: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin: 10px 20px 20px 20px;
+}
+#row3{
+    background-color: #081f41;
+    width: 100%;
+    color: #e3ecff;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+/*----------Login Page------------*/
+#para form input,textarea,.admin_table td input{
+    padding: 3px 10px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: solid 2px rgba(128, 0, 0, 0.116);
+    background-color: rgb(247, 205, 168);
+}
+#para form input:hover,textarea:hover,.admin_table td input:hover{
+    background-color: peachpuff;
+}
+#para form input:focus,textarea:focus,.admin_table td input:focus {
+    outline: none;
+    border: solid 2px rgba(128, 0, 0, 0.384);
+    background-color: peachpuff;
+}
+button{
+    background-color: rgb(247, 205, 168);
+    border: solid 2px rgba(128, 0, 0, 0.116);
+    color: maroon;
+    padding: 6px 20px;
+    text-decoration: none;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+button:hover{
+    background-color: peachpuff;
+}
+/*-------------Admin----------------*/
+.admin_table td,th{
+    padding-right: 30px;
+}
+.admin_table td a{
+    padding-right: 10px;
+    color: maroon;
+}
+#para ul li a{
+    text-decoration: none;
+    color: maroon;
+}
+#para ul li a:hover{
+    border-bottom: solid 2px maroon;
+}
+/*---------manage_admin-------------*/
+#admin_form,#current_pages,#add_subject_form,#add_page_form,#edit_page_form,#edit_subject_form,#edit_admin_form,#delete_admin_form{
+    display: none;
+}
+#edit_page,#add_page{
+    color: maroon;
+    display: none;
+    margin-top: 20px;
+}
+#delete_subject_btn,#delete_page_btn{
+    color: maroon;
+}
