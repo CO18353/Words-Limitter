@@ -13,32 +13,34 @@ if (isset($_POST["submit"])) {
     $wordcount = $conn->real_escape_string($_POST["wordcount"]);
     $info = $conn->real_escape_string($_POST["info"]);
     $count = $wordcount;
+    $temp=0;
     $date_to_check;
-
-    $stat = "SELECT * FROM client_data WHERE user='" . $_SESSION["uid"] . "' ORDER BY delivery_date DESC LIMIT 1;";
-    $res = $conn->query($stat);
+    $stat= "SELECT delivery_date, SUM(word_count) AS count_sum FROM client_data WHERE user='" . $_SESSION["uid"] . "' GROUP BY delivery_date ORDER BY delivery_date ASC;";
+    $res=$conn->query($stat);
     $res->fetch_all(MYSQLI_ASSOC);
     if ($res->num_rows > 0) {
         foreach ($res as $r) {
-            $date_to_check= $r["delivery_date"];
+            if(($count+$r["count_sum"])<=1000){
+                $date_to_check = $r["delivery_date"];
+                $temp=10;
+                break;
+            }
         }
-    }
-    else
+    } else{
         $date_to_check = date("Y-m-d");
-    $statement= "SELECT * FROM client_data WHERE user='" . $_SESSION["uid"] . "' AND delivery_date='".$date_to_check."';";
-    $result = $conn->query($statement);
-    $result->fetch_all(MYSQLI_ASSOC);
-
-    if ($result->num_rows > 0) {
-        foreach ($result as $row) {
-            $count += $row["word_count"];
+        $temp = 10;
+    }
+    if($temp==0){
+        $stat = "SELECT * FROM client_data WHERE user='" . $_SESSION["uid"] . "' ORDER BY delivery_date DESC LIMIT 1;";
+        $res = $conn->query($stat);
+        $res->fetch_all(MYSQLI_ASSOC);
+        if ($res->num_rows > 0) {
+            foreach ($res as $r) {
+                $date_to_check= date("Y-m-d", strtotime('+1 day', strtotime($r["delivery_date"])));
+            }
         }
     }
-    if ($count > 1000)
-        $new_date = date("Y-m-d", strtotime('+1 day',strtotime($date_to_check)));
-    else
-        $new_date=$date_to_check;
-    if ($conn->query("INSERT INTO `client_data`(`user`,`topic`, `word_count`, `content`, `delivery_date`) VALUES ('" . $_SESSION["uid"] . "','" . $topic . "','" . $wordcount . "','" . $info . "','" . $new_date . "') ;")) {
+    if ($conn->query("INSERT INTO `client_data`(`user`,`topic`, `word_count`, `content`, `delivery_date`) VALUES ('" . $_SESSION["uid"] . "','" . $topic . "','" . $wordcount . "','" . $info . "','" . $date_to_check . "') ;")) {
         $msg = 'Succesfully Added';
         $msgClass = "alert-success";
     } else {
