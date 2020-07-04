@@ -40,7 +40,7 @@ require_once("dbconn.php");
                             <th>Delivery date</th>
                         </tr>
                         <?php
-                        $statement = "SELECT * FROM client_data WHERE user='" . $_SESSION["uid"] . "';";
+                        $statement = "SELECT * FROM client_data WHERE user='" . $_SESSION["uid"] . "' ORDER BY delivery_date ASC;";
                         $result = $conn->query($statement);
                         $result->fetch_all(MYSQLI_ASSOC);
                         if ($result->num_rows == 0) {
